@@ -60,7 +60,7 @@ public class Meetsky_StepDefinitions {
     public void user_should_see_warning(String string) {
         WebElement warningMessage = Driver.getDriver().findElement(By.xpath("//p[contains(text(),'Wrong username or password.')]"));
 
-        Assert.assertTrue( warningMessage.isDisplayed());
+        Assert.assertTrue(warningMessage.isDisplayed());
     }
 
 
@@ -71,5 +71,89 @@ public class Meetsky_StepDefinitions {
         passwordInput.sendKeys(invalidPassword);
 
     }
+
+
+    @Then("User should see {string} message")
+    public void user_should_see_message(String string) {
+        WebElement usernameBox = Driver.getDriver().findElement(By.id("user"));
+        String validationMessage =usernameBox.getAttribute("validationMessage");
+        Assert.assertEquals(validationMessage,"Please fill in this field.");
+
+    }
+
+    @Then("User should see {string} message in password box")
+    public void user_should_see_message_in_password_box(String string) {
+
+        WebElement passwordBox = Driver.getDriver().findElement(By.id("password"));
+        String validationMessage =passwordBox.getAttribute("validationMessage");
+        Assert.assertEquals(validationMessage,"Please fill in this field.");
+
+    }
+
+    @Then("User should see the password in a form of dots")
+    public void user_should_see_the_password_in_a_form_of_dots() {
+
+        WebElement passBox = Driver.getDriver().findElement(By.id("password"));
+        String passMessage =passBox.getAttribute("type");
+        Assert.assertEquals(passMessage,"password");
+
+    }
+
+    @When("User clicks the eye icon to see the password")
+    public void user_clicks_the_eye_icon_to_see_the_password() {
+       WebElement eyeIcon = Driver.getDriver().findElement(By.xpath("//body/div[1]/div[1]/main[1]/div[1]/div[1]/form[1]/fieldset[1]/p[2]/a[1]/img[1]"));
+       eyeIcon.click();
+
+    }
+
+    @Then("User should see the password explicitly")
+    public void user_should_see_the_password_explicitly() {
+
+        WebElement passBox = Driver.getDriver().findElement(By.id("password"));
+        String passMessage =passBox.getAttribute("type");
+        Assert.assertEquals(passMessage,"text");
+
+    }
+
+    @When("User can see the Forgot password? link on the login page")
+    public void user_can_see_the_forgot_password_link_on_the_login_page() {
+       WebElement forgotLink = Driver.getDriver().findElement(By.id("lost-password"));
+       Assert.assertTrue(forgotLink.isDisplayed());
+    }
+
+    @When("User clicks the Forgot Password? link")
+    public void user_clicks_the_forgot_password_link() {
+        WebElement forgotLink = Driver.getDriver().findElement(By.id("lost-password"));
+        forgotLink.click();
+    }
+
+    @Then("User can see the {string} button on the next page after clicking on forget password link")
+    public void user_can_see_the_button_on_the_next_page_after_clicking_on_forget_password_link(String string) {
+     WebElement resetPassword = Driver.getDriver().findElement(By.id("reset-password-submit"));
+     boolean r = resetPassword.isDisplayed();
+        System.out.println("r = " + r);
+    }
+
+
+    @Then("User can see valid placeholders on Username and Password fields as expected")
+    public void user_can_see_valid_placeholders_on_username_and_password_fields_as_expected() {
+
+        WebElement passBox = Driver.getDriver().findElement(By.id("password"));
+        String passwordPlaceHolder =passBox.getAttribute("placeholder");
+        Assert.assertEquals(passwordPlaceHolder,"Password");
+
+        WebElement usernameBox = Driver.getDriver().findElement(By.id("user"));
+        String userPlaceHolder =usernameBox.getAttribute("placeholder");
+        Assert.assertEquals(userPlaceHolder,"Username or email");
+
+
+
+    }
+
+
+
+
+
+
 
 }
