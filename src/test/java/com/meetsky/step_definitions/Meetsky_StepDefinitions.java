@@ -122,9 +122,10 @@ public class Meetsky_StepDefinitions {
     }
 
     @When("User clicks the Forgot Password? link")
-    public void user_clicks_the_forgot_password_link() {
+    public void user_clicks_the_forgot_password_link() throws InterruptedException {
         WebElement forgotLink = Driver.getDriver().findElement(By.id("lost-password"));
         forgotLink.click();
+        Thread.sleep(3000);
     }
 
     @Then("User can see the {string} button on the next page after clicking on forget password link")
@@ -132,6 +133,7 @@ public class Meetsky_StepDefinitions {
      WebElement resetPassword = Driver.getDriver().findElement(By.id("reset-password-submit"));
      boolean r = resetPassword.isDisplayed();
         System.out.println("r = " + r);
+        Assert.assertEquals(r,true);
     }
 
 
